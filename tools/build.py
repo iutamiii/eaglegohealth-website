@@ -8,7 +8,9 @@ WA = "628117732325"
 WA_SHOW = "+62 811-773-2325"
 EMAIL = "ccare@eaglegohealth.com"
 ADDRESS = "Jln Potlot III Gg. H. Riin no.17, Duren Tiga, Pancoran, Jakarta Selatan 12760"
-FORM_URL = "https://forms.gle/GANTI-DENGAN-LINK-GOOGLE-FORM"
+FORM_URL = "https://docs.google.com/forms/d/1Mitt_AxFaq-hIvFPeVPjsdqyIaPRPeBNAILAvk5XDVw/viewform"          # Medical inquiry
+PARTNER_FORM_URL = "https://docs.google.com/forms/d/1lo8Cv5SAgX6fi8hP3g2NskW25o_VDVj6KGkphvNEr9c/viewform"  # Referral partner
+TESTI_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeDoczzXP_r7OEyPCgbd9K1m6ZgzEv-EqtXsOvA7crgpHEJYA/viewform"  # Testimonial
 WA_MSG = "Hello Eagle Go, I would like to ask about medical treatment abroad."
 WA_LINK = "https://wa.me/%s?text=%s" % (WA, WA_MSG.replace(" ", "%20").replace(",", "%2C"))
 
@@ -139,7 +141,7 @@ def page(path, title, desc, body, current, lang="en", head_extra=""):
       </div>
       <div>
         <h4>Help</h4>
-        <ul><li><a href="{FORM_URL}" target="_blank" rel="noopener">Send a medical inquiry</a></li><li><a href="{WA_LINK}" target="_blank" rel="noopener">Chat on WhatsApp</a></li></ul>
+        <ul><li><a href="{FORM_URL}" target="_blank" rel="noopener">Send a medical inquiry</a></li><li><a href="{WA_LINK}" target="_blank" rel="noopener">Chat on WhatsApp</a></li><li><a href="{PARTNER_FORM_URL}" target="_blank" rel="noopener">Become a referral partner</a></li><li><a href="{TESTI_FORM_URL}" target="_blank" rel="noopener">Share your experience</a></li></ul>
       </div>
       <div>
         <h4>Contact</h4>
@@ -410,7 +412,10 @@ forh = f'''
     <div class="logo-grid">{plogos}</div>
   </div>
 </section>
-{cta_band("Interested in partnering with Eagle Go?", "Contact us to discuss a referral partnership for your hospital or healthcare institution.")}
+<section class="section"><div class="wrap"><div class="cta-band">
+  <div><h2>Interested in partnering with Eagle Go?</h2><p>Email us at {EMAIL} or message us on WhatsApp to discuss a partnership for your hospital or healthcare institution.</p></div>
+  <div class="btn-row"><a class="btn btn-light" href="{WA_LINK}" target="_blank" rel="noopener">{ICON["wa"]}Chat on WhatsApp</a><a class="btn btn-outline-light" href="{{base}}contact/">Contact details</a></div>
+</div></div></section>
 '''
 page("for-hospitals", "For Hospitals | Eagle Go Health", "Eagle Go Health helps international hospitals access Indonesian outbound patients through structured, compliant and transparent referral coordination.", forh, "for-hospitals/")
 
@@ -505,6 +510,22 @@ contact = f'''
       </ul>
       <div class="btn-row"><a class="btn btn-light" href="{FORM_URL}" target="_blank" rel="noopener">Fill in the inquiry form</a></div>
       <p style="font-size:.92rem">Prefer to chat? Message us on <a href="{WA_LINK}" target="_blank" rel="noopener" style="color:#fff">WhatsApp</a>.</p>
+    </div>
+  </div>
+</section>
+<section class="section tint">
+  <div class="wrap split" style="align-items:start">
+    <div class="copy">
+      <span class="eyebrow">Partner with us</span>
+      <h2>Become an Eagle Go referral partner</h2>
+      <p>Help patients around you reach trusted hospitals abroad. Register as a referral partner and our team will contact you with the details.</p>
+      <div class="btn-row"><a class="btn btn-primary" href="{PARTNER_FORM_URL}" target="_blank" rel="noopener">Register as referral partner</a></div>
+    </div>
+    <div class="copy">
+      <span class="eyebrow">Share your experience</span>
+      <h2>Have you been treated with Eagle Go?</h2>
+      <p>Your story can help other patients who are still deciding. It only takes a few minutes.</p>
+      <div class="btn-row"><a class="btn btn-ghost" href="{TESTI_FORM_URL}" target="_blank" rel="noopener">Write a testimonial</a></div>
     </div>
   </div>
 </section>
