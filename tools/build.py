@@ -608,6 +608,39 @@ for p in POSTS:
     page("blog/" + p["slug"], p["title"] + " | Eagle Go Health", p["description"], body, "blog/", lang="id",
          head_extra=f'\n<meta property="og:type" content="article">\n<script type="application/ld+json">{schema}</script>')
 
+# ---------------- OLD WORDPRESS LINKS ----------------
+# Old addresses from the WordPress site, sent to their new pages so shared links and Google results keep working
+REDIRECTS = {
+    "sample-page": "contact/",
+    "blog-2": "blog/",
+    "2026/01/11/penyakit-ginjal-dan-transplant-ginjal-kapankah-transplantasi-menjadi-pilihan": "blog/penyakit-ginjal-dan-transplant-ginjal/",
+    "2026/01/10/thalassemia-dan-bone-marrow-transplant": "blog/thalassemia-dan-bone-marrow-transplant/",
+    "2025/12/12/atresia-biliar": "blog/atresia-biliar/",
+}
+for old, new in REDIRECTS.items():
+    rel = "../" * (old.count("/") + 1) + new
+    d = os.path.join(OUT, old); os.makedirs(d, exist_ok=True)
+    open(os.path.join(d, "index.html"), "w").write(
+        f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Eagle Go Health</title>
+<link rel="canonical" href="{SITE_URL}/{new}"><meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={rel}"></head>
+<body><p>This page has moved. <a href="{rel}">Continue</a>.</p></body></html>\n''')
+
+# ---------------- 404 PAGE ----------------
+nf = f'''
+<section class="banner"><div class="wrap">
+  <span class="eyebrow">Page not found</span>
+  <h1>We could not find that page</h1>
+  <p>The page may have moved. Try one of the links below, or contact us on WhatsApp.</p>
+  <div class="btn-row" style="margin-top:8px"><a class="btn btn-light" href="/">Back to home</a><a class="btn btn-outline-light" href="/hospitals/">See hospitals</a><a class="btn btn-outline-light" href="/blog/">Read the blog</a></div>
+</div></section>
+'''
+page("404tmp", "Page not found | Eagle Go Health", "Page not found.", nf, "")
+import shutil
+nf_html = open(os.path.join(OUT, "404tmp", "index.html")).read().replace('href="../', 'href="/').replace('src="../', 'src="/')
+open(os.path.join(OUT, "404.html"), "w").write(nf_html)
+shutil.rmtree(os.path.join(OUT, "404tmp"))
+
 # ---------------- SITEMAP / ROBOTS ----------------
 urls = ["", "hospitals/", "for-hospitals/", "blog/", "about/", "contact/"] + ["blog/%s/" % p["slug"] for p in POSTS]
 today = datetime.date.today().isoformat()
