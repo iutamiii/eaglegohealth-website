@@ -12,7 +12,7 @@ FORM_URL = "https://docs.google.com/forms/d/1Mitt_AxFaq-hIvFPeVPjsdqyIaPRPeBNAIL
 PARTNER_FORM_URL = "https://docs.google.com/forms/d/1lo8Cv5SAgX6fi8hP3g2NskW25o_VDVj6KGkphvNEr9c/viewform"  # Referral partner
 TESTI_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeDoczzXP_r7OEyPCgbd9K1m6ZgzEv-EqtXsOvA7crgpHEJYA/viewform"  # Testimonial
 # Published CSV of the "Publik" tab (only rows the owner marked Tampilkan = Ya). The page loads it live.
-TESTI_CSV_URL = ""
+TESTI_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQh4P6XtyeOMqta3UAK7vmlWihrvjzJnjxWRBJtf2FHtsVqB6Zh-RTvtlkXr_4a4r3L-6I_KPLom3UB/pub?gid=1166402263&single=true&output=csv"
 WA_MSG = "Hello Eagle Go, I would like to ask about medical treatment abroad."
 WA_LINK = "https://wa.me/%s?text=%s" % (WA, WA_MSG.replace(" ", "%20").replace(",", "%2C"))
 
