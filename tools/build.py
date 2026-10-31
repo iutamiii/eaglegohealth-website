@@ -181,7 +181,7 @@ def post_cards(featured=False, limit=None, exclude=None):
 def cta_band(title, text):
     return f'''<section class="section"><div class="wrap"><div class="cta-band">
   <div><h2>{title}</h2><p>{text}</p></div>
-  <div class="btn-row"><a class="btn btn-light" href="{WA_LINK}" target="_blank" rel="noopener">{ICON["wa"]}Chat on WhatsApp</a><a class="btn btn-outline-light" href="{FORM_URL}" target="_blank" rel="noopener">Send an inquiry</a></div>
+  <div class="btn-row"><a class="btn btn-light" href="{FORM_URL}" target="_blank" rel="noopener">Send a medical inquiry</a></div>
 </div></div></section>'''
 
 # ---------------- HOME ----------------
@@ -204,7 +204,7 @@ home = f'''
       </div>
     </div>
     <div class="hero-media">
-      <div class="photo"><img src="{{base}}images/patient-care.jpg" alt="A smiling patient in a wheelchair with two hospital staff" width="984" height="656"></div>
+      <div class="photo"><img src="{{base}}images/patient-care.jpg" alt="A smiling patient in a wheelchair giving a thumbs up with a doctor and a nurse" width="1106" height="924"></div>
       <div class="hero-badge"><span class="cross" aria-hidden="true"></span><p><strong>Care you can trust</strong>From first inquiry until you are back home</p></div>
     </div>
   </div>
@@ -255,7 +255,7 @@ home = f'''
       <h2>Let Eagle Go help you plan your next step</h2>
       <p>Our team helps you understand your options, coordinates with the hospital and plans the next steps with you. Send us your medical reports and we will get back to you.</p>
       <p class="disclaimer">Our role is non-clinical. Diagnosis and treatment decisions always stay with the doctors at the hospital.</p>
-      <div class="btn-row"><a class="btn btn-primary" href="{WA_LINK}" target="_blank" rel="noopener">{ICON["wa"]}Chat on WhatsApp</a><a class="btn btn-ghost" href="{FORM_URL}" target="_blank" rel="noopener">Send an inquiry</a></div>
+      <div class="btn-row"><a class="btn btn-primary" href="{FORM_URL}" target="_blank" rel="noopener">Send a medical inquiry</a></div>
     </div>
   </div>
 </section>
@@ -509,7 +509,6 @@ contact = f'''
         <li>Preferred country and timing</li>
       </ul>
       <div class="btn-row"><a class="btn btn-light" href="{FORM_URL}" target="_blank" rel="noopener">Fill in the inquiry form</a></div>
-      <p style="font-size:.92rem">Prefer to chat? Message us on <a href="{WA_LINK}" target="_blank" rel="noopener" style="color:#fff">WhatsApp</a>.</p>
     </div>
   </div>
 </section>
@@ -616,8 +615,7 @@ for p in POSTS:
       <span class="eyebrow">Butuh bantuan?</span>
       <h3>Berobat ke luar negeri dengan pendampingan</h3>
       <p>Kirim hasil pemeriksaan, tim Eagle Go bantu carikan rumah sakit yang sesuai dan mengatur prosesnya.</p>
-      <a class="btn btn-primary" href="{WA_LINK}" target="_blank" rel="noopener">{ICON["wa"]}Chat WhatsApp</a>
-      <a class="btn btn-ghost" href="{FORM_URL}" target="_blank" rel="noopener">Isi form konsultasi</a>
+      <a class="btn btn-primary" href="{FORM_URL}" target="_blank" rel="noopener">Isi form konsultasi</a>
     </div>
   </aside>
 </div></section>
