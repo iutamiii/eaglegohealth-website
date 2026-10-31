@@ -11,6 +11,8 @@ ADDRESS = "Jln Potlot III Gg. H. Riin no.17, Duren Tiga, Pancoran, Jakarta Selat
 FORM_URL = "https://docs.google.com/forms/d/1Mitt_AxFaq-hIvFPeVPjsdqyIaPRPeBNAILAvk5XDVw/viewform"          # Medical inquiry
 PARTNER_FORM_URL = "https://docs.google.com/forms/d/1lo8Cv5SAgX6fi8hP3g2NskW25o_VDVj6KGkphvNEr9c/viewform"  # Referral partner
 TESTI_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeDoczzXP_r7OEyPCgbd9K1m6ZgzEv-EqtXsOvA7crgpHEJYA/viewform"  # Testimonial
+# Published CSV of the "Publik" tab (only rows the owner marked Tampilkan = Ya). The page loads it live.
+TESTI_CSV_URL = ""
 WA_MSG = "Hello Eagle Go, I would like to ask about medical treatment abroad."
 WA_LINK = "https://wa.me/%s?text=%s" % (WA, WA_MSG.replace(" ", "%20").replace(",", "%2C"))
 
@@ -87,24 +89,19 @@ def load_posts():
 
 POSTS = load_posts()
 
-# Patient testimonials. Source: the owner's testimonial Google Form (sheet "Form Responses 1").
-# Add one only after the owner confirms the patient sent it and agreed to publication.
-# Never publish the WhatsApp number column.
+# Patient testimonials load live from the testimonial Google Sheet (tab "Publik", published as CSV):
+# the owner marks Tampilkan = Ya in "Form Responses 1" and the story appears on the site, no rebuild needed.
+# TESTIMONIALS below is only the fallback shown if the sheet cannot be loaded.
 TESTIMONIALS = [
-    {"name": "Kim Hok Tjiu", "city": "Samarinda", "treatment": "Penggantian lutut",
-     "hospital": "Regency Specialist Hospital, Malaysia",
-     "text": "Saya replace lutut di sana. Pengalamannya cukup menyenangkan dan harganya terjangkau. Tidak ada ribet, langsung disambut. Saat mendaftar pertama kali juga cepat, dan Mbak Utami sangat profesional membantu perjalanan saya."},
+    {"nama": "Kim Hok Tjiu", "kota": "Samarinda", "rumah_sakit": "Regency Hospital Malaysia",
+     "cerita": "Saya replace lutut di sana. Pengalamannya cukup menyenangkan dan harganya terjangkau. Tidak ada ribet, langsung disambut. Saat mendaftar pertama kali juga cepat, dan Mbak Utami sangat profesional membantu perjalanan saya."},
 ]
 
 def testimonials_section(tint=False):
-    if not TESTIMONIALS:
-        return ""
-    cards = "".join(f'''<figure class="testi">
-  <blockquote>{e(t["text"])}</blockquote>
-  <figcaption><b>{e(t["name"])}</b><span>{e(t["city"])}</span><span>{e(t["treatment"] + ", " if t.get("treatment") else "")}{e(t["hospital"])}</span></figcaption>
-</figure>''' for t in TESTIMONIALS)
+    cards = "".join(f'''<figure class="testi"><blockquote>{e(t["cerita"])}</blockquote><figcaption><b>{e(t["nama"])}</b><span>{e(t["kota"])}</span><span>{e(t["rumah_sakit"])}</span></figcaption></figure>''' for t in TESTIMONIALS)
     one = " single" if len(TESTIMONIALS) == 1 else ""
-    return f'''<section class="section{" tint" if tint else ""}">
+    hidden = "" if (TESTIMONIALS or TESTI_CSV_URL) else " hidden"
+    return f'''<section class="section testi-section{" tint" if tint else ""}" data-csv="{TESTI_CSV_URL}"{hidden}>
   <div class="wrap">
     <div class="head"><span class="eyebrow">Patient stories</span><h2>In their own words</h2></div>
     <div class="testis{one}">{cards}</div>
@@ -599,20 +596,37 @@ open(os.path.join(OUT, "js", "site.js"), "w").write('''(function(){
     });
   }
 
-  // Inquiry form to WhatsApp
-  var f = document.getElementById("inquiry");
-  if (f) f.addEventListener("submit", function(ev){
-    ev.preventDefault();
-    var g = function(id){ return document.getElementById(id).value.trim(); };
-    var err = document.getElementById("f-error");
-    if (!g("f-name") || !g("f-msg")) { err.hidden = false; return; }
-    err.hidden = true;
-    var text = "Hello Eagle Go, my name is " + g("f-name") + (g("f-city") ? " from " + g("f-city") : "") +
-      ".\\nAsking for: " + g("f-who") + "\\nPreferred country: " + g("f-country") + "\\n\\n" + g("f-msg");
-    var a = document.createElement("a");
-    a.href = "https://wa.me/" + WA + "?text=" + encodeURIComponent(text);
-    a.target = "_blank"; a.rel = "noopener";
-    document.body.appendChild(a); a.click(); a.remove();
+  // Patient testimonials, loaded live from the published Google Sheet
+  function parseCSV(t){
+    var rows = [], row = [], cell = "", q = false;
+    for (var i = 0; i < t.length; i++) {
+      var c = t[i];
+      if (q) { if (c === '"') { if (t[i+1] === '"') { cell += '"'; i++; } else q = false; } else cell += c; }
+      else if (c === '"') q = true;
+      else if (c === ",") { row.push(cell); cell = ""; }
+      else if (c === "\\n" || c === "\\r") { if (c === "\\r" && t[i+1] === "\\n") i++; row.push(cell); rows.push(row); row = []; cell = ""; }
+      else cell += c;
+    }
+    if (cell || row.length) { row.push(cell); rows.push(row); }
+    return rows;
+  }
+  function esc(x){ var d = document.createElement("div"); d.textContent = x || ""; return d.innerHTML; }
+  document.querySelectorAll(".testi-section[data-csv]").forEach(function(sec){
+    var url = sec.getAttribute("data-csv");
+    if (!url) return;
+    fetch(url, {cache: "no-store"}).then(function(r){ if (!r.ok) throw 0; return r.text(); }).then(function(txt){
+      var rows = parseCSV(txt), head = (rows.shift() || []).map(function(h){ return h.trim().toLowerCase(); });
+      var ix = function(k){ return head.indexOf(k); };
+      var items = rows.filter(function(r){ return r[ix("nama")] && r[ix("cerita")]; });
+      var box = sec.querySelector(".testis");
+      if (!items.length) { sec.hidden = true; return; }
+      box.innerHTML = items.map(function(r){
+        return '<figure class="testi"><blockquote>' + esc(r[ix("cerita")]) + '</blockquote><figcaption><b>' + esc(r[ix("nama")]) +
+          '</b><span>' + esc(r[ix("kota")]) + '</span><span>' + esc(r[ix("rumah_sakit")]) + '</span></figcaption></figure>';
+      }).join("");
+      box.classList.toggle("single", items.length === 1);
+      sec.hidden = false;
+    }).catch(function(){ /* keep the fallback already on the page */ });
   });
 })();
 ''' % WA)

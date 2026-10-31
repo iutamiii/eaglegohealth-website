@@ -49,6 +49,7 @@ Isi artikel...
 
 ## Patient testimonials
 
-- Patients submit through the testimonial Google Form. Responses land in Google Sheet `1FYqnal6XR3bJIhjj3CWfUMh9HWCy9fAyizBeui80wz8`, tab `Form Responses 1` (columns: Timestamp, Nama, Kota Asal, Rumah Sakit dan Negara, Ceritakan pengalaman, Nomor WhatsApp).
-- To publish one, add an entry to `TESTIMONIALS` in `tools/build.py` and rebuild. Only add a testimonial after the owner confirms it came from the patient and that they agreed to publication. Tidy spelling lightly; never change what the patient said.
-- Never publish the WhatsApp number column.
+- Patients submit through the testimonial Google Form. Responses land in Google Sheet `1FYqnal6XR3bJIhjj3CWfUMh9HWCy9fAyizBeui80wz8`, tab `Form Responses 1`.
+- The owner approves a testimonial by setting column `Tampilkan` to `Ya`. Tab `Publik` holds a QUERY formula that keeps only approved rows and only the safe columns (nama, kota, rumah_sakit, cerita). The WhatsApp number column is never included.
+- Tab `Publik` is published to the web as CSV; that URL is `TESTI_CSV_URL` in `tools/build.py`. `js/site.js` loads it live, so approving or un-approving in the sheet changes the site with no rebuild.
+- `TESTIMONIALS` in `tools/build.py` is only a fallback shown if the sheet cannot be loaded.
