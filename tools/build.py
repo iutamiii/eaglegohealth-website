@@ -87,6 +87,31 @@ def load_posts():
 
 POSTS = load_posts()
 
+# Patient testimonials. Source: the owner's testimonial Google Form (sheet "Form Responses 1").
+# Add one only after the owner confirms the patient sent it and agreed to publication.
+# Never publish the WhatsApp number column.
+TESTIMONIALS = [
+    {"name": "Kim Hok Tjiu", "city": "Samarinda", "treatment": "Penggantian lutut",
+     "hospital": "Regency Specialist Hospital, Malaysia",
+     "text": "Saya replace lutut di sana. Pengalamannya cukup menyenangkan dan harganya terjangkau. Tidak ada ribet, langsung disambut. Saat mendaftar pertama kali juga cepat, dan Mbak Utami sangat profesional membantu perjalanan saya."},
+]
+
+def testimonials_section(tint=False):
+    if not TESTIMONIALS:
+        return ""
+    cards = "".join(f'''<figure class="testi">
+  <blockquote>{e(t["text"])}</blockquote>
+  <figcaption><b>{e(t["name"])}</b><span>{e(t["city"])}</span><span>{e(t["treatment"] + ", " if t.get("treatment") else "")}{e(t["hospital"])}</span></figcaption>
+</figure>''' for t in TESTIMONIALS)
+    one = " single" if len(TESTIMONIALS) == 1 else ""
+    return f'''<section class="section{" tint" if tint else ""}">
+  <div class="wrap">
+    <div class="head"><span class="eyebrow">Patient stories</span><h2>In their own words</h2></div>
+    <div class="testis{one}">{cards}</div>
+    <p class="testi-cta">Have you been treated with Eagle Go? <a href="{TESTI_FORM_URL}" target="_blank" rel="noopener">Share your experience</a></p>
+  </div>
+</section>'''
+
 def slug(s): return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 e = html.escape
 
@@ -259,6 +284,8 @@ home = f'''
     </div>
   </div>
 </section>
+
+{testimonials_section()}
 
 <section class="section tint">
   <div class="wrap">
@@ -479,6 +506,7 @@ about = f'''
     </div>
   </div>
 </section>
+{testimonials_section(tint=True)}
 {cta_band("Let us help you plan your treatment", "Talk to our team about your case and the hospitals that can help.")}
 '''
 page("about", "About | Eagle Go Health", "Eagle Go is a medical tourism facilitator led by Indira Utami, helping patients access trusted international hospitals.", about, "about/")

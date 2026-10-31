@@ -342,3 +342,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .side-card p{color:var(--muted);font-size:.98rem}
 .side-card .btn{justify-content:center}
 @media (max-width:900px){.article-layout{grid-template-columns:1fr}.article-side{position:static}}
+
+/* Patient testimonials */
+.testis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px}
+.testi{margin:0;padding:clamp(26px,4vw,40px);border-radius:20px;background:var(--navy);color:var(--on-dark);display:grid;gap:22px;align-content:space-between;position:relative;overflow:hidden}
+.testi::before{content:"\201C";position:absolute;right:24px;top:-18px;font-family:var(--display);font-size:9rem;line-height:1;color:rgba(127,211,218,.22)}
+.testi blockquote{margin:0;font-size:1.12rem;line-height:1.65;position:relative}
+.testis.single .testi blockquote{font-size:clamp(1.2rem,2.2vw,1.5rem);max-width:52ch}
+.testi figcaption{display:grid;gap:2px;border-top:1px solid rgba(255,255,255,.15);padding-top:16px;font-size:.95rem;color:var(--on-dark-muted)}
+.testi figcaption b{font-family:var(--display);font-weight:600;font-size:1.1rem;color:#fff}
+.testi-cta{margin-top:22px;color:var(--muted)}
+.testi-cta a{color:var(--teal-dark);font-weight:600}

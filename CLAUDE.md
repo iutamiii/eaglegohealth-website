@@ -46,3 +46,9 @@ Isi artikel...
 - Eagle Go is a non-clinical coordinator: never give medical advice, dosages, diagnoses or success-rate promises. Describe conditions and options in general terms and tell readers to decide with their doctors. The page template already adds a medical disclaimer at the end.
 - End with one short paragraph on how Eagle Go can help (hospital search, preparing medical documents, coordination).
 - Never put patient data, client documents, passwords or contracts in this repository. It is public.
+
+## Patient testimonials
+
+- Patients submit through the testimonial Google Form. Responses land in Google Sheet `1FYqnal6XR3bJIhjj3CWfUMh9HWCy9fAyizBeui80wz8`, tab `Form Responses 1` (columns: Timestamp, Nama, Kota Asal, Rumah Sakit dan Negara, Ceritakan pengalaman, Nomor WhatsApp).
+- To publish one, add an entry to `TESTIMONIALS` in `tools/build.py` and rebuild. Only add a testimonial after the owner confirms it came from the patient and that they agreed to publication. Tidy spelling lightly; never change what the patient said.
+- Never publish the WhatsApp number column.
