@@ -56,7 +56,9 @@ HOSPITALS = [
 ("Nigeria", ["Reddington Multispecialist Hospital"]),
 ("Uganda", ["International Hospital Kampala"]),
 ]
-PARTNER_NAMES = ["Asia One Healthcare Group","Thomson Hospital Kota Damansara","Regency Specialist Hospital, Johor","Mahkota Medical Centre, Melaka","Mount Miriam Cancer Hospital, Penang","Optimax Eye Specialist","Mayapada Hospital","RS Awal Bros","Artemis Hospital Group (6 Facilities)","Max Healthcare (22 Facilities)"]
+# Partners without a logo yet (shown with the Partner badge on the Hospitals page and counted on Home)
+PARTNERS_NO_LOGO = ["KPJ Healthcare Group", "Subang Jaya Medical Centre", "ALTY Orthopaedic Hospital"]
+PARTNER_NAMES = ["KPJ Healthcare Group (28 Facilities)","Subang Jaya Medical Centre","ALTY Orthopaedic Hospital","Asia One Healthcare Group","Thomson Hospital Kota Damansara","Regency Specialist Hospital, Johor","Mahkota Medical Centre, Melaka","Mount Miriam Cancer Hospital, Penang","Optimax Eye Specialist","Mayapada Hospital","RS Awal Bros","Artemis Hospital Group (6 Facilities)","Max Healthcare (22 Facilities)"]
 TOTAL = sum(len(h) for _, h in HOSPITALS)
 
 BULAN = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"]
@@ -222,7 +224,7 @@ home = f'''
       <div class="facts">
         <div class="fact"><b>{len(HOSPITALS)}</b><span>countries</span></div>
         <div class="fact"><b>{TOTAL}+</b><span>hospitals and clinics</span></div>
-        <div class="fact"><b>{len(PARTNERS)}</b><span>hospital partners</span></div>
+        <div class="fact"><b>{len(PARTNERS) + len(PARTNERS_NO_LOGO)}</b><span>hospital partners</span></div>
       </div>
     </div>
     <div class="hero-media">
