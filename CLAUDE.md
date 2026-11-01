@@ -1,6 +1,13 @@
 # Eagle Go Health website
 
-Static website for eaglegohealth.com, published with GitHub Pages from the `main` branch (root folder). Every push to `main` goes live in 1 to 2 minutes, so only push after the owner (Indira) has approved the change.
+Static website for eaglegohealth.com, published with GitHub Pages from the `main` branch (root folder). Every push to `main` goes live in 1 to 2 minutes.
+
+## Publishing rule (from the owner, Indira)
+
+- Never change the site unless the owner asked for that change.
+- Minor content edits she asks for (text, dates, links, contact details, marking a hospital as partner) may be pushed straight to `main`.
+- Anything that changes how the site looks (new sections or pages, layout, colors, images, new components) must first be shown as a draft preview (screenshots or a preview link). Do not push it to `main` until she approves. Keep unapproved work on a `draft/...` branch.
+- New blog articles are drafts until she approves them.
 
 ## How the site is built
 
