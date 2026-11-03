@@ -335,6 +335,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .prose th{background:var(--mist)}
 .article-cover{margin:0 0 1.6em}
 .article-cover img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.article-cover.full img{aspect-ratio:auto;height:auto}
 .article-note{margin-top:2.4em!important}
 .article-side{position:sticky;top:calc(96px + env(safe-area-inset-top,0px))}
 .side-card{display:grid;gap:14px;padding:26px;border-radius:var(--radius);background:#fff;border:1px solid var(--line)}

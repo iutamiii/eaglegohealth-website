@@ -83,7 +83,7 @@ def load_posts():
             "title": meta["title"], "category": meta.get("category", "Kesehatan"),
             "date": d, "date_id": "%d %s %d" % (d.day, BULAN[d.month-1], d.year),
             "excerpt": meta.get("excerpt", ""), "description": meta.get("description", meta.get("excerpt", "")),
-            "cover": meta.get("cover", ""), "cover_alt": meta.get("cover_alt", ""),
+            "cover": meta.get("cover", ""), "cover_alt": meta.get("cover_alt", ""), "cover_full": meta.get("cover_full", "").lower() == "true",
             "minutes": max(1, round(words / 200)),
             "html": markdown.markdown(body, extensions=["extra", "sane_lists"]),
         })
@@ -636,7 +636,7 @@ open(os.path.join(OUT, "js", "site.js"), "w").write('''(function(){
 for p in POSTS:
     cover = ""
     if p["cover"]:
-        cover = f'<figure class="article-cover"><img src="{{base}}{p["cover"]}" alt="{e(p["cover_alt"])}"></figure>'
+        cover = f'<figure class="article-cover{" full" if p["cover_full"] else ""}"><img src="{{base}}{p["cover"]}" alt="{e(p["cover_alt"])}"></figure>'
     related = post_cards(limit=2, exclude=p["slug"])
     schema = json.dumps({"@context": "https://schema.org", "@type": "Article", "headline": p["title"],
         "datePublished": p["date"].isoformat(), "description": p["description"],
