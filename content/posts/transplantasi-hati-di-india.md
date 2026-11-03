@@ -5,7 +5,7 @@ category: Hati
 excerpt: Kapan kerusakan hati masih bisa diobati, kapan transplantasi menjadi pilihan, dan mengapa India menjadi salah satu destinasi liver transplant.
 description: Gejala kerusakan hati, kapan harus ke dokter, kapan transplantasi hati dipertimbangkan, dan alasan India menjadi destinasi liver transplant bagi pasien Indonesia.
 cover: images/blog/transplantasi-hati-di-india.jpg
-cover_alt: Banner Eagle Go tentang liver transplant di India, dengan ilustrasi organ hati, dokter, keluarga pasien, dan Taj Mahal
+cover_alt: Ilustrasi organ hati dan tahapan transplantasi hati, mulai dari evaluasi medis, penggantian hati, operasi, hingga pemulihan pasien
 cover_full: true
 ---
 Hati bisa mengalami kerusakan bertahun-tahun tanpa menimbulkan gejala yang jelas. Ketika mata mulai menguning, perut membesar, atau kesadaran terganggu, penyakit hati mungkin sudah memasuki tahap serius.
